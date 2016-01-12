@@ -42,3 +42,8 @@ REQUESTS_BASIC_AUTH = AUTH_TOKENS["REQUESTS_BASIC_AUTH"]
 RABBITMQ_USER = AUTH_TOKENS.get('RABBITMQ_USER', 'guest').encode('ascii')
 RABBITMQ_PASS = AUTH_TOKENS.get('RABBITMQ_PASS', 'guest').encode('ascii')
 XQUEUE_USERS = AUTH_TOKENS.get('USERS', None)
+
+RAVEN_DSN = AUTH_TOKENS.get('RAVEN_DSN', None)
+if RAVEN_DSN:
+    RAVEN_CONFIG = { 'dsn': RAVEN_DSN }
+    INSTALLED_APPS += ( 'raven.contrib.django.raven_compat', )
