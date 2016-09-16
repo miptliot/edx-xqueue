@@ -150,7 +150,10 @@ def _upload_file_dict_to_s3(file_dict, key_dict, path, name):
     Returns:
         public_url: URL to access uploaded list
     '''
-    conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+    if settings.S3_HOST is None:
+        conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+    else:
+        conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY, host=settings.S3_HOST)
     bucketname = settings.S3_BUCKET
     bucket = conn.create_bucket(bucketname)
 
@@ -177,7 +180,10 @@ def _upload_to_s3(file_to_upload, path, name):
     Returns:
         public_url: URL to access uploaded file
     '''
-    conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+    if settings.S3_HOST is None:
+        conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY)
+    else:
+        conn = S3Connection(settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY, host=settings.S3_HOST)
     bucketname = settings.S3_BUCKET
     bucket = conn.create_bucket(bucketname)
 
