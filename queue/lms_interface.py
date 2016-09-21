@@ -166,8 +166,8 @@ def _upload_file_dict_to_s3(file_dict, key_dict, path, name):
 
     k = Key(bucket)
     k.key = '{path}/{name}'.format(path=path, name=name)
-    k.set_contents_from_string(json.dumps(data))
     public_url = k.generate_url(60*60*24*365)  # URL timeout in seconds.
+    k.set_contents_from_string(json.dumps(data))
 
     return public_url
 
@@ -192,8 +192,8 @@ def _upload_to_s3(file_to_upload, path, name):
 
     k = Key(bucket)
     k.key = '{path}/{name}'.format(path=path, name=name)
+    public_url = k.generate_url(60*60*24*365)  # URL timeout in seconds.
     k.set_metadata('filename', file_to_upload.name)
     k.set_contents_from_file(file_to_upload)
-    public_url = k.generate_url(60*60*24*365)  # URL timeout in seconds.
 
     return public_url
