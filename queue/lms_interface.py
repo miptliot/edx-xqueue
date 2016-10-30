@@ -56,7 +56,7 @@ def submit(request):
                 s3_keys = dict()  # For internal Xqueue use
                 s3_urls = dict()  # For external grader use
                 for filename in request.FILES.keys():
-                    s3_key = make_hashkey(xqueue_header + filename)
+                    s3_key = make_hashkey((xqueue_header + filename).encode('utf-8'))
                     s3_url = _upload_to_s3(request.FILES[filename], queue_name, s3_key)
                     s3_keys.update({filename: s3_key})
                     s3_urls.update({filename: s3_url})
